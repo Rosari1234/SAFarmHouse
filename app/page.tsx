@@ -401,7 +401,7 @@ const App: React.FC = () => {
                 <div className="flex-1">
                   <h3 className="text-2xl font-black mb-3">SA Farmshop</h3>
                   <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-2xl">
-                    {aiInsight || "farm records"}
+                    {aiInsight || "Farm Records"}
                   </p>
                 </div>
               </div>
