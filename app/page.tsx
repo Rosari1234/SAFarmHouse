@@ -335,7 +335,7 @@ const App: React.FC = () => {
                 <i className="fas fa-filter text-lg"></i>
               </div>
               <div>
-                <h3 className="text-lg font-black text-slate-900">Dashboard Filters</h3>
+                <h3 className="text-lg font-black text-slate-900">Dashboard</h3>
                 <p className="text-sm text-slate-500">Filters</p>
               </div>
             </div>
@@ -401,7 +401,7 @@ const App: React.FC = () => {
                 <div className="flex-1">
                   <h3 className="text-2xl font-black mb-3">SA Farmshop</h3>
                   <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-2xl">
-                    {aiInsight || "Farm Records"}
+                    {aiInsight || "Records"}
                   </p>
                 </div>
               </div>
