@@ -503,21 +503,56 @@ const App: React.FC = () => {
             <table className="w-full">
               <thead>
                 <tr className="bg-slate-50/50 text-slate-400 text-[10px] font-black uppercase tracking-[0.25em] border-b border-slate-100">
+                  <th className="px-10 py-7 text-right">Total Payable</th>
+                  <th className="px-10 py-7 text-center">Verification</th>
                   <th className="px-10 py-7 text-left">Timeline</th>
                   <th className="px-10 py-7 text-left">Dealer / Unit Price</th>
                   <th className="px-10 py-7 text-center">Batch Count</th>
                   <th className="px-10 py-7 text-right">Net Weight</th>
-                  <th className="px-10 py-7 text-right">Total Payable</th>
-                  <th className="px-10 py-7 text-center">Verification</th>
+                
                   <th className="px-10 py-7 text-center">Manage</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {paginatedTransactions.length > 0 ? paginatedTransactions.map((tx) => (
                   <tr key={tx.id} className={`group transition-all ${isActionLoading === tx.id ? 'opacity-40 grayscale pointer-events-none' : 'hover:bg-emerald-50/30'}`}>
+                     <td className="px-10 py-8 text-right">
+                      <div className="text-2xl font-black text-slate-900 tracking-tighter">LKR {tx.totalAmount.toLocaleString()}</div>
+                      <div className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tight italic">{new Date(tx.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</div>
+                                                <div className="text-xs text-emerald-600/60 font-black mt-0.5 tracking-tight uppercase">LKR {tx.pricePerKg.toLocaleString()} /{tx.weightKg.toFixed(2)} kg</div>
+                    </td>
+                    <td className="px-10 py-8">
+                      <div className="flex justify-center">
+                        <button
+                          onClick={() => togglePaid(tx.id, tx.isPaid)}
+                          className={`group relative flex items-center space-x-3 px-6 py-3 rounded-[1.25rem] text-[11px] font-black transition-all border-2 shadow-sm active:scale-95 ${tx.isPaid
+                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-100'
+                              : 'bg-white text-rose-500 border-rose-100 hover:border-rose-300 hover:bg-rose-50'
+                            }`}
+                        >
+                          {tx.isPaid ? (
+                            <>
+                              <i className="fas fa-circle-check text-sm animate-bounce-slow"></i>
+                              <span>VERIFIED PAID</span>
+                            </>
+                          ) : (
+                            <>
+                              <i className="fas fa-clock-rotate-left text-sm"></i>
+                              <span>MARK AS PAID</span>
+                            </>
+                          )}
+                          {!tx.isPaid && (
+                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                    </td>
                     <td className="px-10 py-8">
                       <div className="text-sm font-black text-slate-900">
-                        {new Date(tx.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+                           {new Date(tx.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </div>
                       <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
                         Batch ID: {tx.id.slice(-6).toUpperCase()}
@@ -549,39 +584,7 @@ const App: React.FC = () => {
                       <div className="text-xl font-black text-slate-900">{tx.weightKg.toFixed(2)}</div>
                       <div className="text-[10px] text-emerald-600 font-black uppercase tracking-widest mt-1">Kilograms</div>
                     </td>
-                    <td className="px-10 py-8 text-right">
-                      <div className="text-2xl font-black text-slate-900 tracking-tighter">LKR {tx.totalAmount.toLocaleString()}</div>
-                      <div className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tight italic">Secure Sync</div>
-                    </td>
-                    <td className="px-10 py-8">
-                      <div className="flex justify-center">
-                        <button
-                          onClick={() => togglePaid(tx.id, tx.isPaid)}
-                          className={`group relative flex items-center space-x-3 px-6 py-3 rounded-[1.25rem] text-[11px] font-black transition-all border-2 shadow-sm active:scale-95 ${tx.isPaid
-                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-100'
-                              : 'bg-white text-rose-500 border-rose-100 hover:border-rose-300 hover:bg-rose-50'
-                            }`}
-                        >
-                          {tx.isPaid ? (
-                            <>
-                              <i className="fas fa-circle-check text-sm animate-bounce-slow"></i>
-                              <span>VERIFIED PAID</span>
-                            </>
-                          ) : (
-                            <>
-                              <i className="fas fa-clock-rotate-left text-sm"></i>
-                              <span>MARK AS PAID</span>
-                            </>
-                          )}
-                          {!tx.isPaid && (
-                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
-                            </span>
-                          )}
-                        </button>
-                      </div>
-                    </td>
+                   
                     <td className="px-10 py-8">
                       <div className="flex justify-center space-x-2">
                         <button
