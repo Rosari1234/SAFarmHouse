@@ -662,10 +662,10 @@ const App: React.FC = () => {
       <footer className="py-24 border-t border-slate-200/60 mt-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
           <div className="flex flex-col md:flex-row items-center gap-6 mb-12">
-            <div className="flex items-center space-x-3 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
+            {/* <div className="flex items-center space-x-3 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
               <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
               <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Primary Cluster: Healthy</span>
-            </div>
+            </div> */}
             <div className="flex items-center space-x-3 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
               <i className="fas fa-shield-halved text-emerald-600 text-sm"></i>
               <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">SSL Encryption: Active</span>
