@@ -336,7 +336,7 @@ const App: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-black text-slate-900">Dashboard Filters</h3>
-                <p className="text-sm text-slate-500">Filter statistics by dealer and date range</p>
+                {/* <p className="text-sm text-slate-500">Filter statistics by dealer and date range</p> */}
               </div>
             </div>
 
