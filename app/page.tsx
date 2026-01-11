@@ -258,38 +258,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900">
       {/* Premium Navbar */}
-      {/* <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="bg-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl shadow-xl shadow-emerald-200 rotate-3">
-              <i className="fas fa-kiwi-bird -rotate-3"></i>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-none">SA Farmshop</h1>
-              <div className="flex items-center mt-1 space-x-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Live Chicken Inventory & Sales Intelligence</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => setShowDealerModal(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 rounded-2xl font-black transition-all shadow-2xl shadow-blue-300 flex items-center space-x-3 active:scale-95"
-            >
-              <i className="fas fa-users text-lg"></i>
-              <span>Dealers</span>
-            </button>
-            <button 
-              onClick={() => setShowForm(true)}
-              className="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-2xl font-black transition-all shadow-2xl shadow-slate-300 flex items-center space-x-3 active:scale-95"
-            >
-              <i className="fas fa-plus-circle text-lg"></i>
-              <span>Register Batch</span>
-            </button>
-          </div>
-        </div>
-      </header> */}
+
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:h-20 lg:py-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
           <div className="flex items-center space-x-3 sm:space-x-4">
@@ -300,7 +269,7 @@ const App: React.FC = () => {
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">SA Farmshop</h1>
               <div className="flex items-center mt-1 space-x-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest hidden sm:inline">Live Chicken Inventory & Sales Intelligence</span>
+                <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest hidden sm:inline">Inventory & Sales</span>
                 <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest sm:hidden">Inventory & Sales</span>
               </div>
             </div>
