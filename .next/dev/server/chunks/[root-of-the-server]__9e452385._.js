@@ -90,17 +90,26 @@ const DB_NAME = "farmshop";
 const COLLECTION_NAME = "transactions";
 async function PATCH(request, { params }) {
     try {
-        const { id } = await params;
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
         const body = await request.json();
         const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
         const db = client.db(DB_NAME);
         const { isPaid } = body;
+        if (!id) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Missing transaction ID'
+            }, {
+                status: 400
+            });
+        }
         let objectId;
         try {
             objectId = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongodb$29$__["ObjectId"](id);
         } catch (e) {
+            console.error('Invalid ObjectId:', id, e);
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Invalid transaction ID'
+                error: 'Invalid transaction ID format'
             }, {
                 status: 400
             });
@@ -113,12 +122,14 @@ async function PATCH(request, { params }) {
             }
         });
         if (result.matchedCount === 0) {
+            console.error('Transaction not found:', id);
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 error: 'Transaction not found'
             }, {
                 status: 404
             });
         }
+        console.log('Updated transaction:', id, 'isPaid:', isPaid);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true
         });
@@ -133,7 +144,8 @@ async function PATCH(request, { params }) {
 }
 async function PUT(request, { params }) {
     try {
-        const { id } = await params;
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
         const body = await request.json();
         const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
         const db = client.db(DB_NAME);
@@ -202,7 +214,8 @@ async function PUT(request, { params }) {
 }
 async function DELETE(request, { params }) {
     try {
-        const { id } = await params;
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
         const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"];
         const db = client.db(DB_NAME);
         let objectId;

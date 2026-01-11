@@ -5,20 +5,26 @@ import clientPromise from '../../../../lib/mongodb';
 const DB_NAME = "farmshop";
 const COLLECTION_NAME = "transactions";
 
-export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(request: Request, { params }: { params: any }) {
   try {
-    const { id } = await params;
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
     const body = await request.json();
     const client = await clientPromise;
     const db = client.db(DB_NAME);
 
     const { isPaid } = body;
 
+    if (!id) {
+      return NextResponse.json({ error: 'Missing transaction ID' }, { status: 400 });
+    }
+
     let objectId;
     try {
       objectId = new ObjectId(id);
     } catch (e) {
-      return NextResponse.json({ error: 'Invalid transaction ID' }, { status: 400 });
+      console.error('Invalid ObjectId:', id, e);
+      return NextResponse.json({ error: 'Invalid transaction ID format' }, { status: 400 });
     }
 
     const result = await db.collection(COLLECTION_NAME).updateOne(
@@ -27,9 +33,11 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     );
 
     if (result.matchedCount === 0) {
+      console.error('Transaction not found:', id);
       return NextResponse.json({ error: 'Transaction not found' }, { status: 404 });
     }
 
+    console.log('Updated transaction:', id, 'isPaid:', isPaid);
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error('PATCH error:', e);
@@ -37,9 +45,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 }
 
-export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function PUT(request: Request, { params }: { params: any }) {
   try {
-    const { id } = await params;
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
     const body = await request.json();
     const client = await clientPromise;
     const db = client.db(DB_NAME);
@@ -97,9 +106,10 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, { params }: { params: any }) {
   try {
-    const { id } = await params;
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
     const client = await clientPromise;
     const db = client.db(DB_NAME);
 
