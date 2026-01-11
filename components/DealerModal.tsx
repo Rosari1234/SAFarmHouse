@@ -41,21 +41,22 @@ const DealerModal: React.FC<Props> = ({ dealers, onAddDealer, onUpdateDealer, on
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-        <div className="bg-blue-600 p-6 text-white">
-          <h2 className="text-2xl font-bold">Dealer Management</h2>
-          <p className="opacity-80 text-sm">Manage your dealer database</p>
+
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[95vh] sm:max-h-none flex flex-col">
+        <div className="bg-blue-600 p-4 sm:p-6 text-white flex-shrink-0">
+          <h2 className="text-xl sm:text-2xl font-bold">Dealer Management</h2>
+          <p className="opacity-80 text-xs sm:text-sm">Manage your dealer database</p>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
           {/* Add New Dealer */}
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-slate-800 mb-3">Add New Dealer</h3>
-            <div className="flex space-x-3">
+            <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-3">Add New Dealer</h3>
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
               <input
                 type="text"
-                className="flex-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm sm:text-base"
                 placeholder="Dealer name"
                 value={newDealerName}
                 onChange={e => setNewDealerName(e.target.value)}
@@ -63,7 +64,7 @@ const DealerModal: React.FC<Props> = ({ dealers, onAddDealer, onUpdateDealer, on
               />
               <button
                 onClick={handleAddDealer}
-                className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-bold"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white rounded-lg sm:rounded-xl hover:bg-blue-700 transition-all font-bold text-sm sm:text-base"
               >
                 <i className="fas fa-plus mr-2"></i>Add
               </button>
@@ -72,52 +73,52 @@ const DealerModal: React.FC<Props> = ({ dealers, onAddDealer, onUpdateDealer, on
 
           {/* Dealers List */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-3">Current Dealers ({dealers.length})</h3>
-            <div className="max-h-96 overflow-y-auto">
+            <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-3">Current Dealers ({dealers.length})</h3>
+            <div className="max-h-64 sm:max-h-96 overflow-y-auto">
               {dealers.length > 0 ? (
                 <div className="space-y-2">
                   {dealers.map((dealer, index) => (
-                    <div key={dealer.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                    <div key={dealer.id} className="flex items-center justify-between p-3 sm:p-4 bg-slate-50 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm sm:text-base flex-shrink-0">
                           {dealer.name.charAt(0).toUpperCase()}
                         </div>
-                        <div>
-                          <div className="font-bold text-slate-800">{dealer.name}</div>
-                          <div className="text-xs text-slate-500">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-bold text-slate-800 text-sm sm:text-base truncate">{dealer.name}</div>
+                          <div className="text-[10px] sm:text-xs text-slate-500">
                             Added {new Date(dealer.createdAt).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <div className="text-sm text-slate-400 font-mono">
+                      <div className="flex items-center space-x-2 flex-shrink-0">
+                        <div className="text-xs sm:text-sm text-slate-400 font-mono">
                           #{(index + 1).toString().padStart(2, '0')}
                         </div>
                         <button
                           onClick={() => openEditModal(dealer)}
-                          className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                         >
-                          <i className="fas fa-edit text-sm"></i>
+                          <i className="fas fa-edit text-xs sm:text-sm"></i>
                         </button>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-slate-400">
-                  <i className="fas fa-users text-4xl mb-4"></i>
-                  <p className="font-medium">No dealers added yet</p>
-                  <p className="text-sm">Add your first dealer above</p>
+                <div className="text-center py-8 sm:py-12 text-slate-400">
+                  <i className="fas fa-users text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+                  <p className="font-medium text-sm sm:text-base">No dealers added yet</p>
+                  <p className="text-xs sm:text-sm">Add your first dealer above</p>
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        <div className="p-6 border-t border-slate-100 flex justify-end">
+        <div className="p-4 sm:p-6 border-t border-slate-100 flex justify-end flex-shrink-0">
           <button
             onClick={onClose}
-            className="px-6 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-all font-bold"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 bg-slate-100 text-slate-700 rounded-lg sm:rounded-xl hover:bg-slate-200 transition-all font-bold text-sm sm:text-base"
           >
             Close
           </button>
@@ -126,20 +127,20 @@ const DealerModal: React.FC<Props> = ({ dealers, onAddDealer, onUpdateDealer, on
 
       {/* Edit Dealer Modal */}
       {showEditModal && editingDealer && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-            <div className="bg-blue-600 p-6 text-white">
-              <h2 className="text-2xl font-bold">Edit Dealer</h2>
-              <p className="opacity-80 text-sm">Update dealer information</p>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div className="bg-blue-600 p-4 sm:p-6 text-white">
+              <h2 className="text-xl sm:text-2xl font-bold">Edit Dealer</h2>
+              <p className="opacity-80 text-xs sm:text-sm">Update dealer information</p>
             </div>
 
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Dealer Name</label>
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">Dealer Name</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm sm:text-base"
                     value={editName}
                     onChange={e => setEditName(e.target.value)}
                     placeholder="Enter dealer name"
@@ -149,16 +150,16 @@ const DealerModal: React.FC<Props> = ({ dealers, onAddDealer, onUpdateDealer, on
               </div>
             </div>
 
-            <div className="p-6 border-t border-slate-100 flex justify-end space-x-3">
+            <div className="p-4 sm:p-6 border-t border-slate-100 flex justify-end space-x-2 sm:space-x-3">
               <button
                 onClick={closeEditModal}
-                className="px-6 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-all font-bold"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-slate-100 text-slate-700 rounded-lg sm:rounded-xl hover:bg-slate-200 transition-all font-bold text-sm sm:text-base"
               >
                 Cancel
               </button>
               <button
                 onClick={saveEdit}
-                className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-bold"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white rounded-lg sm:rounded-xl hover:bg-blue-700 transition-all font-bold text-sm sm:text-base"
               >
                 Save Changes
               </button>

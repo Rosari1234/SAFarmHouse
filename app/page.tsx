@@ -90,11 +90,11 @@ const App: React.FC = () => {
   const filteredTransactions = useMemo(() => {
     return state.transactions.filter(t => {
       const matchesSearch = t.dealerName.toLowerCase().includes(state.filters.search.toLowerCase());
-      const matchesStatus = state.filters.status === 'all' || 
-                           (state.filters.status === 'paid' && t.isPaid) || 
-                           (state.filters.status === 'unpaid' && !t.isPaid);
+      const matchesStatus = state.filters.status === 'all' ||
+        (state.filters.status === 'paid' && t.isPaid) ||
+        (state.filters.status === 'unpaid' && !t.isPaid);
       const matchesDate = (!state.filters.startDate || t.date >= state.filters.startDate) &&
-                         (!state.filters.endDate || t.date <= state.filters.endDate);
+        (!state.filters.endDate || t.date <= state.filters.endDate);
       const matchesDealer = !state.filters.dealerId || t.dealerId === state.filters.dealerId;
       return matchesSearch && matchesStatus && matchesDate && matchesDealer;
     });
@@ -116,7 +116,7 @@ const App: React.FC = () => {
   const transactionsForStats = useMemo(() => {
     return state.transactions.filter(t => {
       const matchesDate = (!dashboardFilters.startDate || t.date >= dashboardFilters.startDate) &&
-                         (!dashboardFilters.endDate || t.date <= dashboardFilters.endDate);
+        (!dashboardFilters.endDate || t.date <= dashboardFilters.endDate);
       const matchesDealer = !dashboardFilters.dealerId || t.dealerId === dashboardFilters.dealerId;
       return matchesDate && matchesDealer;
     });
@@ -258,7 +258,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900">
       {/* Premium Navbar */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
+      {/* <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="bg-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl shadow-xl shadow-emerald-200 rotate-3">
@@ -289,6 +289,41 @@ const App: React.FC = () => {
             </button>
           </div>
         </div>
+      </header> */}
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:h-20 lg:py-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="bg-emerald-600 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white text-xl sm:text-2xl shadow-xl shadow-emerald-200 rotate-3">
+              <i className="fas fa-kiwi-bird -rotate-3"></i>
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">SA Farmshop</h1>
+              <div className="flex items-center mt-1 space-x-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest hidden sm:inline">Live Chicken Inventory & Sales Intelligence</span>
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest sm:hidden">Inventory & Sales</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2 sm:space-x-4 w-full lg:w-auto">
+            <button
+              onClick={() => setShowDealerModal(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl font-black transition-all shadow-2xl shadow-blue-300 flex items-center space-x-2 sm:space-x-3 active:scale-95 text-xs sm:text-base flex-1 sm:flex-initial justify-center"
+            >
+              <i className="fas fa-users text-sm sm:text-lg"></i>
+              <span className="hidden sm:inline">Dealerss new</span>
+              <span className="sm:hidden">Dealers</span>
+            </button>
+            <button
+              onClick={() => setShowForm(true)}
+              className="bg-slate-900 hover:bg-black text-white px-3 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl font-black transition-all shadow-2xl shadow-slate-300 flex items-center space-x-2 sm:space-x-3 active:scale-95 text-xs sm:text-base flex-1 sm:flex-initial justify-center"
+            >
+              <i className="fas fa-plus-circle text-sm sm:text-lg"></i>
+              <span className="hidden sm:inline">Register Batch</span>
+              <span className="sm:hidden">New Batch</span>
+            </button>
+          </div>
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -304,13 +339,13 @@ const App: React.FC = () => {
                 <p className="text-sm text-slate-500">Filter statistics by dealer and date range</p>
               </div>
             </div>
-            
+
             <div className="flex flex-wrap items-center gap-4 lg:ml-auto">
               <div className="flex items-center bg-slate-50 border border-slate-200 rounded-2xl p-3">
                 <div className="w-8 h-8 rounded-xl bg-slate-200 flex items-center justify-center text-slate-500 mr-3">
                   <i className="fas fa-user-tie text-sm"></i>
                 </div>
-                <select 
+                <select
                   className="bg-transparent text-sm font-semibold text-slate-800 outline-none cursor-pointer"
                   value={dashboardFilters.dealerId}
                   onChange={e => setDashboardFilters(prev => ({ ...prev, dealerId: e.target.value }))}
@@ -321,22 +356,24 @@ const App: React.FC = () => {
                   ))}
                 </select>
               </div>
-              
-              <div className="flex items-center bg-slate-50 border border-slate-200 rounded-2xl p-3">
-                <div className="w-8 h-8 rounded-xl bg-slate-200 flex items-center justify-center text-slate-500 mr-3">
-                  <i className="fas fa-calendar text-sm"></i>
+
+
+              <div className="flex items-start bg-white border-2 border-slate-100 p-2 rounded-[1.5rem] shadow-sm w-full lg:w-auto">
+                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 flex-shrink-0">
+                  <i className="fas fa-calendar-check text-lg"></i>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <input 
-                    type="date" 
-                    className="bg-transparent text-sm font-semibold outline-none text-slate-800 cursor-pointer"
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-2 flex-1 min-w-0">
+                  <input
+                    type="date"
+                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer w-full sm:w-auto"
                     value={dashboardFilters.startDate}
                     onChange={e => setDashboardFilters(prev => ({ ...prev, startDate: e.target.value }))}
                   />
-                  <span className="text-slate-400">to</span>
-                  <input 
-                    type="date" 
-                    className="bg-transparent text-sm font-semibold outline-none text-slate-800 cursor-pointer"
+                  <div className="hidden sm:block w-4 h-[2px] bg-slate-200 flex-shrink-0"></div>
+                  <div className="block sm:hidden text-center text-xs text-slate-400 font-bold">to</div>
+                  <input
+                    type="date"
+                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer w-full sm:w-auto"
                     value={dashboardFilters.endDate}
                     onChange={e => setDashboardFilters(prev => ({ ...prev, endDate: e.target.value }))}
                   />
@@ -346,28 +383,29 @@ const App: React.FC = () => {
           </div>
         </div>
 
+
         <StatsCards stats={filteredStats} />
 
         {/* AI Insight Hero */}
         <div className="mb-12 group relative">
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-[3rem] blur-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
           <div className="relative bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl border border-slate-800 overflow-hidden">
-             <div className="absolute top-0 right-0 p-12 opacity-10">
-                <i className="fas fa-brain text-[12rem] -rotate-12"></i>
-             </div>
-             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
-                <div className="flex items-start space-x-8">
-                  <div className="bg-emerald-500/20 p-5 rounded-3xl border border-emerald-500/30">
-                    <i className="fas fa-wand-magic-sparkles text-4xl text-emerald-400"></i>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-black mb-3">SA Farmshop</h3>
-                    <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-2xl">
-                      {aiInsight || "Your farm records are securely hosted on MongoDB. Analyze them now to detect payment risks and track dealer growth."}
-                    </p>
-                  </div>
+            <div className="absolute top-0 right-0 p-12 opacity-10">
+              <i className="fas fa-brain text-[12rem] -rotate-12"></i>
+            </div>
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+              <div className="flex items-start space-x-8">
+                <div className="bg-emerald-500/20 p-5 rounded-3xl border border-emerald-500/30">
+                  <i className="fas fa-wand-magic-sparkles text-4xl text-emerald-400"></i>
                 </div>
-                {/* <button 
+                <div className="flex-1">
+                  <h3 className="text-2xl font-black mb-3">SA Farmshop</h3>
+                  <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-2xl">
+                    {aiInsight || "Your farm records are securely hosted on MongoDB. Analyze them now to detect payment risks and track dealer growth."}
+                  </p>
+                </div>
+              </div>
+              {/* <button 
                   onClick={fetchAIAnalysis}
                   disabled={isAiLoading || state.transactions.length === 0}
                   className="bg-emerald-500 text-slate-900 px-12 py-5 rounded-[2rem] font-black hover:bg-emerald-400 transition-all disabled:opacity-30 whitespace-nowrap shadow-xl shadow-emerald-500/20 active:scale-95"
@@ -378,7 +416,7 @@ const App: React.FC = () => {
                     <><i className="fas fa-microchip mr-3"></i>Generate Insight</>
                   )}
                 </button> */}
-             </div>
+            </div>
           </div>
         </div>
 
@@ -388,15 +426,15 @@ const App: React.FC = () => {
           <div className="p-8 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center gap-8 bg-slate-50/40">
             <div className="flex-1 relative group">
               <i className="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors text-lg"></i>
-              <input 
-                type="text" 
-                placeholder="Search dealer database by name..." 
+              <input
+                type="text"
+                placeholder="Search ..."
                 className="w-full pl-16 pr-8 py-5 rounded-[1.5rem] border-2 border-slate-100 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50 transition-all text-sm font-black placeholder:text-slate-300 bg-white shadow-sm"
                 value={state.filters.search}
-                onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, search: e.target.value }}))}
+                onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, search: e.target.value } }))}
               />
             </div>
-            
+
             <div className="flex flex-wrap items-center gap-6">
               <div className="flex items-center bg-white border-2 border-slate-100 rounded-[1.5rem] p-2 pr-6 shadow-sm">
                 <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 mr-4">
@@ -404,10 +442,10 @@ const App: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Filter Status</div>
-                  <select 
+                  <select
                     className="outline-none bg-transparent text-sm font-black text-slate-800 cursor-pointer pr-4"
                     value={state.filters.status}
-                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, status: e.target.value as FilterType }}))}
+                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, status: e.target.value as FilterType } }))}
                   >
                     <option value="all">Full Ledger</option>
                     <option value="paid">Verified Paid</option>
@@ -415,17 +453,17 @@ const App: React.FC = () => {
                   </select>
                 </div>
               </div>
-              
+
               <div className="flex items-center bg-white border-2 border-slate-100 rounded-[1.5rem] p-2 pr-6 shadow-sm">
                 <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 mr-4">
                   <i className="fas fa-user-tie text-lg"></i>
                 </div>
                 <div>
                   <div className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Filter Dealer</div>
-                  <select 
+                  <select
                     className="outline-none bg-transparent text-sm font-black text-slate-800 cursor-pointer pr-4"
                     value={state.filters.dealerId}
-                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, dealerId: e.target.value }}))}
+                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, dealerId: e.target.value } }))}
                   >
                     <option value="">All Dealers</option>
                     {dealers.map(dealer => (
@@ -434,24 +472,27 @@ const App: React.FC = () => {
                   </select>
                 </div>
               </div>
-              
-              <div className="flex items-center space-x-4 bg-white border-2 border-slate-100 p-2 rounded-[1.5rem] shadow-sm">
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400">
+
+
+
+              <div className="flex items-start bg-white border-2 border-slate-100 p-2 rounded-[1.5rem] shadow-sm w-full lg:w-auto">
+                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 flex-shrink-0">
                   <i className="fas fa-calendar-check text-lg"></i>
                 </div>
-                <div className="flex items-center space-x-3 px-2">
-                  <input 
-                    type="date" 
-                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer"
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-2 flex-1 min-w-0">
+                  <input
+                    type="date"
+                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer w-full sm:w-auto"
                     value={state.filters.startDate}
-                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, startDate: e.target.value }}))}
+                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, startDate: e.target.value } }))}
                   />
-                  <div className="w-4 h-[2px] bg-slate-200"></div>
-                  <input 
-                    type="date" 
-                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer"
+                  <div className="hidden sm:block w-4 h-[2px] bg-slate-200 flex-shrink-0"></div>
+                  <div className="block sm:hidden text-center text-xs text-slate-400 font-bold">to</div>
+                  <input
+                    type="date"
+                    className="bg-transparent text-xs font-black outline-none text-slate-800 cursor-pointer w-full sm:w-auto"
                     value={state.filters.endDate}
-                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, endDate: e.target.value }}))}
+                    onChange={e => setState(prev => ({ ...prev, filters: { ...prev.filters, endDate: e.target.value } }))}
                   />
                 </div>
               </div>
@@ -514,13 +555,12 @@ const App: React.FC = () => {
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex justify-center">
-                        <button 
+                        <button
                           onClick={() => togglePaid(tx.id, tx.isPaid)}
-                          className={`group relative flex items-center space-x-3 px-6 py-3 rounded-[1.25rem] text-[11px] font-black transition-all border-2 shadow-sm active:scale-95 ${
-                            tx.isPaid 
-                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-100' 
+                          className={`group relative flex items-center space-x-3 px-6 py-3 rounded-[1.25rem] text-[11px] font-black transition-all border-2 shadow-sm active:scale-95 ${tx.isPaid
+                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-100'
                               : 'bg-white text-rose-500 border-rose-100 hover:border-rose-300 hover:bg-rose-50'
-                          }`}
+                            }`}
                         >
                           {tx.isPaid ? (
                             <>
@@ -534,23 +574,23 @@ const App: React.FC = () => {
                             </>
                           )}
                           {!tx.isPaid && (
-                             <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                               <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
-                             </span>
+                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
+                            </span>
                           )}
                         </button>
                       </div>
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex justify-center space-x-2">
-                        <button 
+                        <button
                           onClick={() => { setEditingTransaction(tx); setShowForm(true); }}
                           className="w-14 h-14 flex items-center justify-center text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-[1.25rem] transition-all active:scale-90"
                         >
                           <i className="fas fa-edit text-xl"></i>
                         </button>
-                        <button 
+                        <button
                           onClick={() => deleteTx(tx.id)}
                           className="w-14 h-14 flex items-center justify-center text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-[1.25rem] transition-all active:scale-90"
                         >
@@ -601,11 +641,10 @@ const App: React.FC = () => {
                         <button
                           key={pageNum}
                           onClick={() => setCurrentPage(pageNum)}
-                          className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all ${
-                            currentPage === pageNum
+                          className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all ${currentPage === pageNum
                               ? 'bg-emerald-600 text-white shadow-sm'
                               : 'text-slate-600 bg-white border border-slate-200 hover:bg-slate-50'
-                          }`}
+                            }`}
                         >
                           {pageNum}
                         </button>
@@ -629,7 +668,7 @@ const App: React.FC = () => {
       </main>
 
       {showForm && (
-        <TransactionForm 
+        <TransactionForm
           onSave={editingTransaction ? handleEditTransaction : handleAddTransaction}
           onCancel={() => { setShowForm(false); setEditingTransaction(null); }}
           transaction={editingTransaction}
@@ -639,7 +678,7 @@ const App: React.FC = () => {
       )}
 
       {showDealerModal && (
-        <DealerModal 
+        <DealerModal
           dealers={dealers}
           onAddDealer={handleAddDealer}
           onUpdateDealer={handleUpdateDealer}
@@ -652,25 +691,25 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
           <div className="flex flex-col md:flex-row items-center gap-6 mb-12">
             <div className="flex items-center space-x-3 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
-               <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-               <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Primary Cluster: Healthy</span>
+              <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+              <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Primary Cluster: Healthy</span>
             </div>
             <div className="flex items-center space-x-3 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
-               <i className="fas fa-shield-halved text-emerald-600 text-sm"></i>
-               <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">SSL Encryption: Active</span>
+              <i className="fas fa-shield-halved text-emerald-600 text-sm"></i>
+              <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">SSL Encryption: Active</span>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-3 text-slate-900 mb-4 opacity-80">
             <i className="fas fa-kiwi-bird text-2xl text-emerald-600"></i>
             <span className="font-black tracking-tighter text-2xl">SA Farmshop</span>
           </div>
           <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-center">Live Chicken Inventory & Sales Intelligence</p>
-          
+
           <div className="h-[1px] w-full max-w-lg bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-10"></div>
-          
+
           <div className="text-slate-300 text-[10px] font-bold text-center leading-loose">
-            &copy; {new Date().getFullYear()} SA Farmshop. Proprietary Software License.<br/>
+            &copy; {new Date().getFullYear()} SA Farmshop. Proprietary Software License.<br />
             Connected to MongoDB Atlas: lakshanrathnayake.es@gmail.com
           </div>
         </div>

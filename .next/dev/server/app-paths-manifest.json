@@ -1,6 +1,5 @@
 {
   "/api/dealers/route": "app/api/dealers/route.js",
-  "/api/transactions/[id]/route": "app/api/transactions/[id]/route.js",
   "/api/transactions/route": "app/api/transactions/route.js",
   "/page": "app/page.js"
 }
