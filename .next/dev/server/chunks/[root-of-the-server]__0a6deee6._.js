@@ -58,6 +58,8 @@ if (!uri) {
 let client;
 let clientPromise;
 if ("TURBOPACK compile-time truthy", 1) {
+    // In development mode, use a global variable so that the value
+    // is preserved across module reloads caused by HMR (Hot Module Replacement).
     if (!/*TURBOPACK member replacement*/ __turbopack_context__.g._mongoClientPromise) {
         client = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongodb$29$__["MongoClient"](uri);
         /*TURBOPACK member replacement*/ __turbopack_context__.g._mongoClientPromise = client.connect();
