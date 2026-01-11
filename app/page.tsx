@@ -12,6 +12,7 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
     transactions: [],
     isLoading: true,
+    dealers: [],
     filters: {
       search: '',
       status: 'all',
@@ -40,8 +41,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const loaded = await db.getTransactions();
-        setState(prev => ({ ...prev, transactions: loaded, isLoading: false }));
+        const [transactions, dealersData] = await Promise.all([
+          db.getTransactions(),
+          db.getDealers()
+        ]);
+        setState(prev => ({ ...prev, transactions, dealers: dealersData, isLoading: false }));
+        setDealers(dealersData);
       } catch (error) {
         console.error("MongoDB Sync Failed:", error);
         setState(prev => ({ ...prev, isLoading: false }));
@@ -196,6 +201,7 @@ const App: React.FC = () => {
     try {
       const newDealer = await db.addDealer(name);
       setDealers(prev => [...prev, newDealer]);
+      setState(prev => ({ ...prev, dealers: [...prev.dealers, newDealer] }));
     } catch (error) {
       alert("Failed to add dealer.");
     }
@@ -218,6 +224,20 @@ const App: React.FC = () => {
     const result = await getAIInsights(state.transactions);
     setAiInsight(result);
     setIsAiLoading(false);
+  };
+
+  const deleteTx = async (id: string) => {
+    if (confirm("Permanently delete this record from MongoDB?")) {
+      setIsActionLoading(id);
+      try {
+        const updated = await db.deleteTransaction(id);
+        setState(prev => ({ ...prev, transactions: updated }));
+      } catch (error) {
+        alert("Failed to delete record.");
+      } finally {
+        setIsActionLoading(null);
+      }
+    }
   };
 
   if (state.isLoading) {

@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Transaction } from '../types';
 import { Transaction, Dealer } from '../types';
 
 interface Props {

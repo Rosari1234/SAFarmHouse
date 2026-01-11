@@ -33,6 +33,7 @@ export type FilterType = 'all' | 'paid' | 'unpaid';
 export interface AppState {
   transactions: Transaction[];
   isLoading: boolean;
+  dealers: Dealer[];
   filters: {
     search: string;
     status: FilterType;

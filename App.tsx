@@ -10,11 +10,13 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
     transactions: [],
     isLoading: true,
+    dealers: [],
     filters: {
       search: '',
       status: 'all',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      dealerId: ''
     }
   });
 
@@ -27,8 +29,11 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const loaded = await db.getTransactions();
-        setState(prev => ({ ...prev, transactions: loaded, isLoading: false }));
+        const [transactions, dealers] = await Promise.all([
+          db.getTransactions(),
+          db.getDealers()
+        ]);
+        setState(prev => ({ ...prev, transactions, dealers, isLoading: false }));
       } catch (error) {
         console.error("MongoDB Sync Failed:", error);
         setState(prev => ({ ...prev, isLoading: false }));
@@ -78,6 +83,15 @@ const App: React.FC = () => {
       alert("Error saving to MongoDB. Verify your network and credentials.");
     } finally {
       setIsActionLoading(null);
+    }
+  };
+
+  const handleAddDealer = async (name: string) => {
+    try {
+      const newDealer = await db.addDealer(name);
+      setState(prev => ({ ...prev, dealers: [...prev.dealers, newDealer] }));
+    } catch (error) {
+      alert("Error adding dealer to database.");
     }
   };
 
@@ -366,6 +380,8 @@ const App: React.FC = () => {
         <TransactionForm 
           onSave={handleAddTransaction}
           onCancel={() => setShowForm(false)}
+          dealers={state.dealers}
+          onAddDealer={handleAddDealer}
         />
       )}
 
