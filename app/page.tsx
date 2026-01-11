@@ -311,7 +311,7 @@ const App: React.FC = () => {
               className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl font-black transition-all shadow-2xl shadow-blue-300 flex items-center space-x-2 sm:space-x-3 active:scale-95 text-xs sm:text-base flex-1 sm:flex-initial justify-center"
             >
               <i className="fas fa-users text-sm sm:text-lg"></i>
-              <span className="hidden sm:inline">Dealerss new</span>
+              <span className="hidden sm:inline">Dealers</span>
               <span className="sm:hidden">Dealers</span>
             </button>
             <button
@@ -319,8 +319,8 @@ const App: React.FC = () => {
               className="bg-slate-900 hover:bg-black text-white px-3 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl font-black transition-all shadow-2xl shadow-slate-300 flex items-center space-x-2 sm:space-x-3 active:scale-95 text-xs sm:text-base flex-1 sm:flex-initial justify-center"
             >
               <i className="fas fa-plus-circle text-sm sm:text-lg"></i>
-              <span className="hidden sm:inline">Register Batch</span>
-              <span className="sm:hidden">New Batch</span>
+              <span className="hidden sm:inline">Add Batch</span>
+              <span className="sm:hidden">Add Batch</span>
             </button>
           </div>
         </div>

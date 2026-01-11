@@ -477,10 +477,6 @@ img, video {
   max-height: 16rem;
 }
 
-.max-h-96 {
-  max-height: 24rem;
-}
-
 .max-h-\[95vh\] {
   max-height: 95vh;
 }
@@ -1084,11 +1080,6 @@ img, video {
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
-}
-
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 }
 
 .py-2 {
