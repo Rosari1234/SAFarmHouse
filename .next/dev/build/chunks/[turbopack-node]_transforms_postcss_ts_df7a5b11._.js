@@ -9,3 +9,5 @@ __turbopack_context__.v((parentImport) => {
         return parentImport("[turbopack-node]/transforms/postcss.ts { CONFIG => \"[project]/postcss.config.js_.loader.mjs [postcss] (ecmascript)\" } [postcss] (ecmascript)");
     });
 });
+}),
+];

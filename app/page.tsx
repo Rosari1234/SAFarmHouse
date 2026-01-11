@@ -248,8 +248,8 @@ const App: React.FC = () => {
           <div className="w-20 h-20 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin absolute top-0"></div>
         </div>
         <div className="text-center">
-          <p className="text-slate-900 font-black text-2xl tracking-tight">Syncing with MongoDB</p>
-          <p className="text-slate-400 font-medium mt-1">Establishing secure connection to your farm data...</p>
+          <p className="text-slate-900 font-black text-2xl tracking-tight">SA Farmshop</p>
+          <p className="text-slate-400 font-medium mt-1">Establishing secure connection...</p>
         </div>
       </div>
     );
@@ -401,7 +401,7 @@ const App: React.FC = () => {
                 <div className="flex-1">
                   <h3 className="text-2xl font-black mb-3">SA Farmshop</h3>
                   <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-2xl">
-                    {aiInsight || "Your farm records are securely hosted on MongoDB. Analyze them now to detect payment risks and track dealer growth."}
+                    {aiInsight || "farm records"}
                   </p>
                 </div>
               </div>
@@ -713,7 +713,7 @@ const App: React.FC = () => {
 
           <div className="text-slate-300 text-[10px] font-bold text-center leading-loose">
             &copy; {new Date().getFullYear()} SA Farmshop. Proprietary Software License.<br />
-            Connected to MongoDB Atlas: lakshanrathnayake.es@gmail.com
+            Powered by: SA Farmshop
           </div>
         </div>
       </footer>
