@@ -713,7 +713,7 @@ const TransactionForm = ({ onSave, onCancel, transaction, dealers, onAddDealer }
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(TransactionForm, "riW/wPke00kYmXsJZuAAHvrGYf8=");
+_s(TransactionForm, "bqbFGaYd8UtICFSyT3NU91/dLNE=");
 _c = TransactionForm;
 const __TURBOPACK__default__export__ = TransactionForm;
 var _c;
